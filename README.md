@@ -1,4 +1,4 @@
-# ASP.NET Core Minimal API – Project Structure (Day One)
+# ASP.NET Core Minimal API – Project Structure (Basic Setup)
 
 This document explains each file and folder in the current project.
 The project uses the **minimal API template**.
