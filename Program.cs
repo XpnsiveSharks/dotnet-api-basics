@@ -1,15 +1,25 @@
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+// Add services to the container
+
+// tells ASP.NET Core to look at your minimal API endpoints
+// "hey ASP.NET, scan my API so others (and tools) can understand it” 
+builder.Services.AddEndpointsApiExplorer();
+// generates the Swagger/OpenAPI specification and the Swagger UI
+// “take all the endpoint info and make a visual playground + machine-readable file”
+builder.Services.AddSwaggerGen();
+
+// optional: keep OpenAPI if you want
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+// Configure Swagger / OpenAPI
+if (app.Environment.IsDevelopment()) // checks if your app is running in development mode
 {
-    app.MapOpenApi();
+    app.UseSwagger(); // exposes the OpenAPI spec as a JSON file
+    app.UseSwaggerUI(); // provides the interactive Swagger web page
+    app.MapOpenApi();  // optional : maps the OpenAPI endpoint in minimal API style
 }
 
 app.UseHttpsRedirection();
@@ -21,7 +31,7 @@ var summaries = new[]
 
 app.MapGet("/weatherforecast", () =>
 {
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
+    var forecast = Enumerable.Range(1, 5).Select(index =>
         new WeatherForecast
         (
             DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
