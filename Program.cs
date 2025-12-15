@@ -1,51 +1,62 @@
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args); // builder → prepare app
+var app = builder.Build(); // app = builder.Build() → create app object
+app.UseHttpsRedirection(); // app.UseHttpsRedirection() → force HTTPS
 
-// Add services to the container
+// MapGet Samples
+app.MapGet("/hello", () => "Hello Friend"); // Basic Get
+app.MapGet("/greet/{name}", (string name) => $"Hello, {name}"); // with route parameter
+app.MapGet("/person", () => new {Name = "Sharks", Age = 28}); // return Json
+app.MapGet("/sum/{a}/{b}", (int a, int b) => new {Sum = a + b}); // multiple parameters
 
-// tells ASP.NET Core to look at your minimal API endpoints
-// "hey ASP.NET, scan my API so others (and tools) can understand it” 
-builder.Services.AddEndpointsApiExplorer();
-// generates the Swagger/OpenAPI specification and the Swagger UI
-// “take all the endpoint info and make a visual playground + machine-readable file”
-builder.Services.AddSwaggerGen();
+// MapGet Activities
+// exercise 1 – simple text
+// create a GET endpoint /welcome that returns:
+// Welcome to my API!
+app.MapGet("/welcome", () => "Welcome to my API");
 
-// optional: keep OpenAPI if you want
-builder.Services.AddOpenApi();
+// exercise 2 – route parameter
+// create a GET endpoint /square/{number} that returns the square of the number.
+// example:
+// GET /square/4
+// response:
+// { "result": 16 }
+app.MapGet("/square/{n}", (int n) => new {result = n*n});
 
-var app = builder.Build();
+// exercise 3 – multiple route parameters
+// create a GET endpoint /multiply/{a}/{b} that multiplies a and b.
+// example:
+// GET /multiply/5/6
+// response:
+// { "result": 30 }
+app.MapGet("/multiply/{a}/{b}", (int a, int b) => new {result = a * b});
 
-// Configure Swagger / OpenAPI
-if (app.Environment.IsDevelopment()) // checks if your app is running in development mode
-{
-    app.UseSwagger(); // exposes the OpenAPI spec as a JSON file
-    app.UseSwaggerUI(); // provides the interactive Swagger web page
-    app.MapOpenApi();  // optional : maps the OpenAPI endpoint in minimal API style
-}
+// exercise 4 – returning JSON object
+// create a GET endpoint /book that returns:
+// {
+//   "Title": "The Alchemist",
+//   "Author": "Paulo Coelho",
+//   "Pages": 208
+// }
+app.MapGet("/book", () => new {Title = "The Alchemist", Author = "Paulo Coelho", Pages = 207});
 
-app.UseHttpsRedirection();
+// exercise 5 – optional route parameter
+// create a GET endpoint /greet2/{name?} where name is optional.
+// if name is provided → "Hello, {name}!"
+// if not → "Hello, Guest!"
+app.MapGet("/greet2/{name?}", (string? name) => name == null ? "Hello, Guest!" : $"Hello, {name}");
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+// exercise 6 – query parameter
+// create a GET endpoint /add that accepts two query parameters: ?x=5&y=7 and returns their sum.
+// example:
+// GET /add?x=5&y=7
+// response:
+// { "sum": 12 }
+app.MapGet("/add/{x}/{y}", (int x, int y) => new {sum = x + y});
 
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
+// exercise 7 – array or list
+// create a GET endpoint /colors that returns a list of 5 color names as JSON.
+// example response
+// ["Red", "Blue", "Green", "Yellow", "Purple"]
+app.MapGet("/colors", () => new string[] {"Red", "Blue", "Green", "Yellow", "Purple"});
 
-app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
+app.Run(); // app.Run() → start the server (should always be at the end)
