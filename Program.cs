@@ -1,5 +1,17 @@
 var builder = WebApplication.CreateBuilder(args); // builder → prepare app
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+builder.Services.AddOpenApi();
+
 var app = builder.Build(); // app = builder.Build() → create app object
+
+if(app.Environment.IsDevelopment()){
+    app.UseSwagger();
+    app.UseSwaggerUI();
+    app.MapOpenApi();
+};
+
 app.UseHttpsRedirection(); // app.UseHttpsRedirection() → force HTTPS
 
 // MapGet Samples
