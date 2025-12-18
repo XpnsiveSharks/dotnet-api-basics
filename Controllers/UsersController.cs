@@ -1,17 +1,32 @@
+using dotnet_api.Services;
 using Microsoft.AspNetCore.Mvc;
 
-[ApiController]             // marks this as a controller
-[Route("api/[controller]")] // base route: api/users (http://localhost:5287/Users)
+[ApiController]
+[Route("api/users")]
+public class UsersController : ControllerBase
+{
+    private readonly AuditLogService _audit;
 
-public class UsersController : ControllerBase{
+    public UsersController(AuditLogService audit)
+    {
+        _audit = audit;
+    }
+
+    [HttpPost]
+    public IActionResult CreateUser()
+    {
+        _audit.Log("CREATE", "User", "admin-1");
+
+        return Ok("user created");
+    }
     [HttpGet]
     public IActionResult GetAll()
     {
-        var users = new []
-        {
-            new Person("Menen", 28),
-            new Person("Sharkie", 19)
-        };
-        return Ok(users);
+        return Ok(_audit.GetAll());
+    }
+    [HttpGet("user/{id}")]
+    public IActionResult GetByUser(string userId)
+    {
+        return Ok(_audit.GetByUser(userId));
     }
 }

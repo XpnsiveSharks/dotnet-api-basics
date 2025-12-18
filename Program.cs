@@ -1,9 +1,13 @@
+using dotnet_api.Services;
+
 var builder = WebApplication.CreateBuilder(args); // builder → prepare app
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddControllers(); // register controllers in our services
 builder.Services.AddSwaggerGen();
 builder.Services.AddOpenApi();
+
+builder.Services.AddSingleton<AuditLogService>();
 
 var app = builder.Build(); // app = builder.Build() → create app object
 
