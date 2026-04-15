@@ -1,0 +1,14 @@
+/home/marynelle-aban/Upskill/Coding.Problem/bin/Debug/net10.0/Coding.Problem
+/home/marynelle-aban/Upskill/Coding.Problem/bin/Debug/net10.0/Coding.Problem.deps.json
+/home/marynelle-aban/Upskill/Coding.Problem/bin/Debug/net10.0/Coding.Problem.runtimeconfig.json
+/home/marynelle-aban/Upskill/Coding.Problem/bin/Debug/net10.0/Coding.Problem.dll
+/home/marynelle-aban/Upskill/Coding.Problem/bin/Debug/net10.0/Coding.Problem.pdb
+/home/marynelle-aban/Upskill/Coding.Problem/obj/Debug/net10.0/Coding.Problem.GeneratedMSBuildEditorConfig.editorconfig
+/home/marynelle-aban/Upskill/Coding.Problem/obj/Debug/net10.0/Coding.Problem.AssemblyInfoInputs.cache
+/home/marynelle-aban/Upskill/Coding.Problem/obj/Debug/net10.0/Coding.Problem.AssemblyInfo.cs
+/home/marynelle-aban/Upskill/Coding.Problem/obj/Debug/net10.0/Coding.Problem.csproj.CoreCompileInputs.cache
+/home/marynelle-aban/Upskill/Coding.Problem/obj/Debug/net10.0/Coding.Problem.dll
+/home/marynelle-aban/Upskill/Coding.Problem/obj/Debug/net10.0/refint/Coding.Problem.dll
+/home/marynelle-aban/Upskill/Coding.Problem/obj/Debug/net10.0/Coding.Problem.pdb
+/home/marynelle-aban/Upskill/Coding.Problem/obj/Debug/net10.0/Coding.Problem.genruntimeconfig.cache
+/home/marynelle-aban/Upskill/Coding.Problem/obj/Debug/net10.0/ref/Coding.Problem.dll
